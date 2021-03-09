@@ -22,26 +22,55 @@ function randomNumber(min , max) {
     return random;
 }
 
+function intoArray(array, elemento) {
+    var i = 0;
+    while ( i < array.length ) {
+        if ( array[i] == elemento) {
+            return true;
+        }
+        i++;
+    }
+    return false;
+}
+
 // 1 - Generare 16 numeri casuali tra 1 e 100 e inserirli in un array (non sono ammessi duplicati)
 var bombe = [];
 
 var random;
 while ( bombe.length < 16 ) {
     random = randomNumber(1, 100);
-    if( bombe.indexOf(random) === -1 ) {
+    if ( bombe.indexOf(random) === -1 ) {
         bombe.push(random);   
     }
 }
 console.log(bombe);
 
-// 2 - Chiedere all’utente di inserire un numero, sempre compreso tra 1 e 100, per 84 volte (il numero non può essere ripetuto)
+// 2 - Chiedere all’utente di inserire un numero, sempre compreso tra 1 e 100, per 84 volte 
 var numeri = [];
 
 var numero;
-while ( numeri.length < 5 ) {
+var controllo = false;
+
+while ( numeri.length < 84 && controllo == false ) {
+
+    // 3 - Il numero inserito dall'utente non può essere ripetuto
     numero = parseInt(prompt("Inserisci un numero"));
-    if( numeri.indexOf(numero) === -1 ) {
-        numeri.push(numero);   
+    if ( numeri.indexOf(numero) === -1 ) {
+        numeri.push(numero); 
+        
+        // 4 - Se il numero è presente nella lista dei numeri generati, la partita termina
+        controllo = intoArray(bombe, numero);
+        if (controllo) {
+            alert("Hai perso, riprova");
+        }
+
     }
 }
 console.log(numeri);
+
+if ( numeri.length == 84 ) {
+    alert("Congratulazioni! Sei riuscito ad evitare tutte le bombe, hai vinto");
+}
+
+// 5 - Comunicare il punteggio, ossia il numero di volte che l’utente ha inserito un numero consentito
+var punteggio = alert("Hai ottenuto un punteggio di " + numeri.length + " su 84");
