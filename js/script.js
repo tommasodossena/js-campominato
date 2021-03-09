@@ -22,17 +22,26 @@ function randomNumber(min , max) {
     return random;
 }
 
-// 1 - Generare 16 numeri casuali tra 1 e 100 e inserirli in un array (N.B. non sono ammessi duplicati)
+// 1 - Generare 16 numeri casuali tra 1 e 100 e inserirli in un array (non sono ammessi duplicati)
 var bombe = [];
 
-var numero;
+var random;
 while ( bombe.length < 16 ) {
-    numero = randomNumber(1, 100);
-    if( bombe.indexOf(numero) === -1 ) {
-        bombe.push(numero);   
+    random = randomNumber(1, 100);
+    if( bombe.indexOf(random) === -1 ) {
+        bombe.push(random);   
     }
 }
 console.log(bombe);
 
-// 2 - I numeri non possono essere duplicati
+// 2 - Chiedere all’utente di inserire un numero, sempre compreso tra 1 e 100, per 84 volte (il numero non può essere ripetuto)
+var numeri = [];
 
+var numero;
+while ( numeri.length < 5 ) {
+    numero = parseInt(prompt("Inserisci un numero"));
+    if( numeri.indexOf(numero) === -1 ) {
+        numeri.push(numero);   
+    }
+}
+console.log(numeri);
