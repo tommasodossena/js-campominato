@@ -56,7 +56,7 @@ while ( numeri.length < 84 && controllo == false ) {
     // 3 - Il numero inserito dall'utente non può essere ripetuto
     do {
         numero = parseInt(prompt("Inserisci un numero da 1 a 100"));  
-    } while ( numero <= 0 || numero > 100 );
+    } while ( numero <= 0 || numero > 100  || isNaN(numero) );
 
     if ( numeri.indexOf(numero) === -1 ) {
         numeri.push(numero); 
