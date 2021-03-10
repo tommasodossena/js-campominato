@@ -16,7 +16,6 @@ con difficoltà 2 => tra 1 e 50
 */
 
 // FUNZIONI 
-
 function randomNumber(min , max) {
     var random = Math.floor(Math.random() * (max - min + 1)) + min;
     return random;
@@ -33,47 +32,70 @@ function intoArray(array, elemento) {
     return false;
 }
 
+// BONUS - Richiede una difficoltà all’utente che cambia il range di numeri casuali:
+var difficolta;
+do {
+    difficolta =  parseInt(prompt("Inserisci la difficoltà, `0` facile, `1` intermedio, `2` difficile"));
+} while ( difficolta != 0 && difficolta != 1 && difficolta != 2 );
+
+var intervalloBombe;
+switch (difficolta) {
+    case 0:
+        intervalloBombe = 100;
+        break;
+
+    case 1:
+        intervalloBombe = 80;
+        break;
+
+    default:
+        intervalloBombe = 50;
+}
+
 // 1 - Generare 16 numeri casuali tra 1 e 100 e inserirli in un array (non sono ammessi duplicati)
 var bombe = [];
 
 var random;
 while ( bombe.length < 16 ) {
-    random = randomNumber(1, 100);
-    if ( bombe.indexOf(random) === -1 ) {
+    random = randomNumber(1, intervalloBombe);
+    if ( intoArray(bombe, random) == false ) {
         bombe.push(random);   
     }
 }
-console.log(bombe);
 
 // 2 - Chiedere all’utente di inserire un numero, sempre compreso tra 1 e 100, per 84 volte 
 var numeri = [];
 
 var numero;
 var controllo = false;
+var range = intervalloBombe - 16;
 
-while ( numeri.length < 84 && controllo == false ) {
+while ( numeri.length < range && controllo == false ) {
 
-    // 3 - Il numero inserito dall'utente non può essere ripetuto
+    // 3 - Il numero inserito dall'utente deve essere compreso tra 1 e 100
     do {
-        numero = parseInt(prompt("Inserisci un numero da 1 a 100"));  
-    } while ( numero <= 0 || numero > 100  || isNaN(numero) );
+        numero = parseInt(prompt("Inserisci un numero da 1 a " + intervalloBombe));  
+    } while ( numero <= 0 || numero > intervalloBombe  || isNaN(numero) );
 
-    if ( numeri.indexOf(numero) === -1 ) {
+    // 4 - Se il numero è presente nella lista dei numeri generati, usciamo dal ciclo
+    if ( intoArray(bombe, numero) == true ) {
+        controllo = true;
+    // 5 - Il numero inserito dall'utente non può essere ripetuto 
+    } else if ( intoArray(numeri, numero) == true ) {
+        alert("Non fare il furbo, inserisci un'altro numero");
+    } else {
         numeri.push(numero); 
-        
-        // 4 - Se il numero è presente nella lista dei numeri generati, la partita termina
-        controllo = intoArray(bombe, numero);
-        if (controllo) {
-            alert("Hai perso, riprova");
-        }
-
     }
+        
 }
-console.log(numeri);
 
-if ( numeri.length == 84 ) {
+// 6 - Stampare il risultato verificando il valore dentro alla variabile controllo e comunicare il punteggio
+if (controllo) {
+    alert("Hai perso, riprova");
+    alert("Hai ottenuto un punteggio di " + numeri.length);
+    console.log("Bombe: " + bombe);
+    console.log("Numeri: " + numeri);
+    console.log("Punteggio: " + numeri.length);
+} else {
     alert("Congratulazioni! Sei riuscito ad evitare tutte le bombe, hai vinto");
 }
-
-// 5 - Comunicare il punteggio, ossia il numero di volte che l’utente ha inserito un numero consentito
-var punteggio = alert("Hai ottenuto un punteggio di " + numeri.length + " su 84");
