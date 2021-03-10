@@ -35,7 +35,7 @@ function intoArray(array, elemento) {
 // BONUS - Richiede una difficoltà all’utente che cambia il range di numeri casuali:
 var difficolta;
 do {
-    difficolta =  parseInt(prompt("Inserisci la difficoltà, `0` facile, `1` intermedio, `2` difficile"));
+    difficolta =  parseInt(prompt("Inserisci la difficoltà: \"0\" facile | \"1\" intermedio | \"2\" difficile"));
 } while ( difficolta != 0 && difficolta != 1 && difficolta != 2 );
 
 var intervalloBombe;
